@@ -1,7 +1,13 @@
 class Snake {
   constructor() {
-    this.pos = [createVector(floor(wscl / 4), floor(wscl / 2))];
+    this.pos;
     this.vel = createVector(1, 0);
+  }
+
+  setup() {
+    this.pos = Array.from({ length: 3 }, (_, i) =>
+      createVector(floor(wscl / 4 - i), floor(wscl / 2))
+    );
   }
 
   grow() {
@@ -28,12 +34,12 @@ class Snake {
   }
 
   show() {
-    fill(0, 167, 0);
+    fill(0, 120, 0);
     noStroke();
     rect(this.pos[0].x, this.pos[0].y, 1, 1);
 
     for (let i = 1; i < this.pos.length; i++) {
-      fill(0, 120, 0);
+      fill(0, 167, 0);
       noStroke();
       rect(this.pos[i].x, this.pos[i].y, 1, 1);
     }
@@ -42,5 +48,15 @@ class Snake {
   chngDir(x, y) {
     this.vel.x = x;
     this.vel.y = y;
+  }
+
+  collision() {
+    const { x, y } = this.pos[0];
+
+    const collided = this.pos.slice(1).findIndex(p => p.x === x && p.y === y) > -1;
+
+    const hitWall = () => x <= 0 || x >= wscl || y <= 0 || y >= wscl;
+
+    return collided || hitWall() ? true : false;
   }
 }

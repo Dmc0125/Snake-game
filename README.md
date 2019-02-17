@@ -11,19 +11,25 @@
 
 - [x] create canvas
   - [x] length/width
-- [ ] snake
-  - [ ] position and velocity
-    - [ ]  /y
-- [ ] apple
-  - [ ] position
-    - [ ]  /y
+- [x] snake
+  - [x] position and velocity
+- [x] apple
+  - [x] position
 
-- [ ] check if the snake collides with:
-  - [ ] apple
-    - [ ] grow snake
-    - [ ] respawn apple
-  - [ ] borders and self
-    - [ ] game over
+- [x] check if the snake collides with:
+  - [x] apple
+    - [x] grow snake
+    - [x] respawn apple
+  - [x] borders and self
+    - [x] game over
 
 - [ ] deploy with now!
   - https://snake-game.now.sh
+
+
+## ADD Later
+
+- [ ] modes:
+  - hard
+    - Framerate increasing with apples eaten
+  - easy
