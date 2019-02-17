@@ -7,10 +7,10 @@
 
 ## TODO
 
-- [ ] p5 cdn
+- [x] p5 cdn
 
-- [ ] create canvas
-  - [ ] length/width
+- [x] create canvas
+  - [x] length/width
 - [ ] snake
   - [ ] position and velocity
     - [ ]  /y
