@@ -1,26 +1,27 @@
-const w =
-  window.innerWidth <= 1200 && window.innerWidth > 720
-    ? 600
-    : window.innerWidth <= 720 && window.innerWidth > 520
-    ? 400
-    : window.innerWidth <= 520
-    ? 300
-    : 800;
 const rez = 20;
-const wscl = w / rez;
 const fRate = 5;
 
+let w;
+let wscl;
 let snake, apple;
+
+// CUSTOM FUNCTIONS
+
+const getWidth = iw =>
+  iw <= 1200 && iw > 720 ? 600 : iw <= 720 && iw > 520 ? 400 : iw <= 520 ? 300 : 800;
 
 const toggle = bool => {
   bool ? noLoop() : loop();
 };
 
+// P5 FUNCTIONS
+
 function setup() {
+  w = getWidth(window.innerWidth);
+  wscl = w / rez;
+
   createCanvas(w, w);
   frameRate(fRate);
-
-  console.log(window.innerWidth, wscl);
 
   snake = new Snake();
   snake.setup();
@@ -52,16 +53,13 @@ function draw() {
   }
 }
 
-// RESIZE CANVSA ON RESIZING WINDOW
+// RESIZE CANVAS ON RESIZING WINDOW
 
 function windowResized() {
-  window.innerWidth <= 1200 && window.innerWidth > 720
-    ? resizeCanvas(600, 600)
-    : window.innerWidth <= 720 && window.innerWidth > 520
-    ? resizeCanvas(400, 400)
-    : window.innerWidth <= 520
-    ? resizeCanvas(300, 300)
-    : resizeCanvas(800, 800);
+  w = getWidth(window.innerWidth);
+  wscl = w / rez;
+
+  resizeCanvas(w, w);
 }
 
 // CHANGE SNAKE DIR ON ARROW PRESSED
