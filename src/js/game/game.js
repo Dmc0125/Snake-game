@@ -10,8 +10,8 @@ let snake, apple;
 const getWidth = iw =>
   iw <= 1200 && iw > 720 ? 600 : iw <= 720 && iw > 520 ? 400 : iw <= 520 ? 300 : 800;
 
-const toggle = bool => {
-  bool ? noLoop() : loop();
+const toggleGame = bool => {
+  bool ? loop() : noLoop();
 };
 
 // P5 FUNCTIONS
@@ -31,6 +31,8 @@ function setup() {
   // const cnv = document.querySelector('canvas');
 
   // cnv.addEventListener('mousedown', e => alert(e));
+
+  noLoop();
 }
 
 function draw() {
@@ -42,14 +44,15 @@ function draw() {
 
   apple.show();
 
+  // EATS APPLE
   if (snake.pos[0].x === apple.pos.x && snake.pos[0].y === apple.pos.y) {
-    apple.respawn();
+    apple.pos = apple.respawn();
     snake.grow();
+    showScore();
   }
 
   if (snake.collision()) {
-    toggle(true);
-    console.log('Game over!');
+    gameOver();
   }
 }
 

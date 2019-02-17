@@ -31,6 +31,7 @@
 
 ### ADD Later
 
+- [ ] show score
 - [ ] change dir of snake on touch on mobile device
 - [ ] modes:
   - hard

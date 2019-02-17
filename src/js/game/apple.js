@@ -1,6 +1,6 @@
 class Apple {
   constructor() {
-    this.pos = createVector(floor(random(wscl)), floor(random(wscl)));
+    this.pos = this.respawn();
   }
 
   show() {
@@ -9,6 +9,14 @@ class Apple {
   }
 
   respawn() {
-    this.pos = createVector(floor(random(wscl)), floor(random(wscl)));
+    const newPos = () => createVector(floor(random(wscl)), floor(random(wscl)));
+
+    let pos = newPos();
+
+    while (snake.pos.findIndex(({ x, y }) => x === pos.x && y === pos.y) > -1) {
+      pos = newPos();
+    }
+
+    return pos;
   }
 }
