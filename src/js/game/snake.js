@@ -11,10 +11,20 @@ class Snake {
   }
 
   grow() {
-    const prevX = this.pos[this.pos.length - 1].x - this.vel.x;
-    const prevY = this.pos[this.pos.length - 1].y - this.vel.y;
+    const { pos } = this;
+    
+    const tailx = pos[pos.length - 1].x;
+    const taily = pos[pos.length - 1].y;
+    const prevTailx = pos[pos.length - 2].x;
+    const prevTaily = pos[pos.length - 2].y;
 
-    this.pos.push(createVector(prevX, prevY));
+    const subx = prevTailx - tailx;
+    const suby = prevTaily - taily;
+
+    const newx = tailx - subx;
+    const newy = taily - suby;
+
+    this.pos.push(createVector(newx, newy));
   }
 
   move() {
@@ -55,7 +65,7 @@ class Snake {
 
     const collided = this.pos.slice(1).findIndex(p => p.x === x && p.y === y) > -1;
 
-    const hitWall = () => x <= 0 || x >= wscl || y <= 0 || y >= wscl;
+    const hitWall = () => x < 0 || x >= wscl || y < 0 || y >= wscl;
 
     return collided || hitWall() ? true : false;
   }

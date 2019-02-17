@@ -1,6 +1,13 @@
-const w = 800;
+const w =
+  window.innerWidth <= 1200 && window.innerWidth > 720
+    ? 600
+    : window.innerWidth <= 720 && window.innerWidth > 520
+    ? 400
+    : window.innerWidth <= 520
+    ? 300
+    : 800;
 const rez = 20;
-const wscl = 800 / rez;
+const wscl = w / rez;
 const fRate = 5;
 
 let snake, apple;
@@ -13,10 +20,16 @@ function setup() {
   createCanvas(w, w);
   frameRate(fRate);
 
+  console.log(window.innerWidth, wscl);
+
   snake = new Snake();
   snake.setup();
 
   apple = new Apple();
+
+  // const cnv = document.querySelector('canvas');
+
+  // cnv.addEventListener('mousedown', e => alert(e));
 }
 
 function draw() {
@@ -39,6 +52,20 @@ function draw() {
   }
 }
 
+// RESIZE CANVSA ON RESIZING WINDOW
+
+function windowResized() {
+  window.innerWidth <= 1200 && window.innerWidth > 720
+    ? resizeCanvas(600, 600)
+    : window.innerWidth <= 720 && window.innerWidth > 520
+    ? resizeCanvas(400, 400)
+    : window.innerWidth <= 520
+    ? resizeCanvas(300, 300)
+    : resizeCanvas(800, 800);
+}
+
+// CHANGE SNAKE DIR ON ARROW PRESSED
+
 function keyPressed() {
   switch (keyCode) {
     case UP_ARROW:
@@ -55,3 +82,5 @@ function keyPressed() {
       break;
   }
 }
+
+// CHANGE SNAKE DIR ON SWIPE ON MOBILE

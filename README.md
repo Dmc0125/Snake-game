@@ -5,7 +5,7 @@
 - Website is at URL:
   - https://snake-game.now.sh
 
-## TODO
+### TODO
 
 - [x] p5 cdn
 
@@ -23,13 +23,16 @@
   - [x] borders and self
     - [x] game over
 
-- [ ] deploy with now!
+- [x] add reactivity to window size
+
+- [x] deploy with now!
   - https://snake-game.now.sh
 
 
-## ADD Later
+### ADD Later
 
+- [ ] change dir of snake on touch on mobile device
 - [ ] modes:
   - hard
-    - Framerate increasing with apples eaten
+    - framerate increasing with apples eaten
   - easy
