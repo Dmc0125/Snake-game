@@ -2,13 +2,14 @@ const w = 800;
 const rez = 20;
 const wscl = 800 / rez;
 
-let snake;
+let snake, apple;
 
 function setup() {
   createCanvas(w, w);
   frameRate(5);
 
   snake = new Snake();
+  apple = new Apple();
 }
 
 function draw() {
@@ -17,6 +18,13 @@ function draw() {
 
   snake.show();
   snake.move();
+
+  apple.show();
+
+  if (snake.pos[0].x === apple.pos.x && snake.pos[0].y === apple.pos.y) {
+    apple.respawn();
+    snake.grow();
+  }
 }
 
 function keyPressed() {
