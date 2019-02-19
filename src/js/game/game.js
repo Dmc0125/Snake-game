@@ -54,6 +54,7 @@ function draw() {
   if (snake.collision()) {
     gameOver();
   }
+
 }
 
 // RESIZE CANVAS ON RESIZING WINDOW
@@ -70,15 +71,39 @@ function windowResized() {
 function keyPressed() {
   switch (keyCode) {
     case UP_ARROW:
+      if (
+        snake.pos[1].x === snake.pos[0].x - snake.vel.x &&
+        snake.pos[1].y === snake.pos[0].y - 1
+      ) {
+        break;
+      }
       snake.chngDir(0, -1);
       break;
     case DOWN_ARROW:
+      if (
+        snake.pos[1].x === snake.pos[0].x - snake.vel.x &&
+        snake.pos[1].y === snake.pos[0].y + 1
+      ) {
+        break;
+      }
       snake.chngDir(0, 1);
       break;
     case LEFT_ARROW:
+      if (
+        snake.pos[1].x === snake.pos[0].x - 1 &&
+        snake.pos[1].y === snake.pos[0].y - snake.vel.y
+      ) {
+        break;
+      }
       snake.chngDir(-1, 0);
       break;
     case RIGHT_ARROW:
+      if (
+        snake.pos[1].x === snake.pos[0].x + 1 &&
+        snake.pos[1].y === snake.pos[0].y - snake.vel.y
+      ) {
+        break;
+      }
       snake.chngDir(1, 0);
       break;
   }
