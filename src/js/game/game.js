@@ -1,21 +1,24 @@
+// scale rate and frame rate
 const rez = 20;
 const fRate = 5;
 
+// canvas width, scaled width
 let w;
 let wscl;
+
 let snake, apple;
 
 // CUSTOM FUNCTIONS
 
-const getWidth = iw =>
-  iw <= 1200 && iw > 720 ? 600 : iw <= 720 && iw > 520 ? 400 : iw <= 520 ? 300 : 800;
+// get screnn width
+const getWidth = w => w <= 720 && w > 520 ? 400 : w <= 520 ? 300 : 600;
 
+// toggle game loop
 const toggleGame = bool => {
   bool ? loop() : noLoop();
 };
 
 // P5 FUNCTIONS
-
 function setup() {
   w = getWidth(window.innerWidth);
   wscl = w / rez;
@@ -58,7 +61,6 @@ function draw() {
 }
 
 // RESIZE CANVAS ON RESIZING WINDOW
-
 function windowResized() {
   w = getWidth(window.innerWidth);
   wscl = w / rez;
@@ -67,7 +69,6 @@ function windowResized() {
 }
 
 // CHANGE SNAKE DIR ON ARROW PRESSED
-
 function keyPressed() {
   switch (keyCode) {
     case UP_ARROW:

@@ -1,32 +1,38 @@
-const startBtn = document.querySelector('main button');
+const startBtn = document.querySelector('#start');
 const scoreHtml = document.querySelector('.score h2');
 const highscoreHtml = document.querySelector('.highscore h2');
 const timerHtml = document.querySelector('#timer h1');
 
-let game;
+// games counter
+let game = -1;
 
-let score = 0;
-const highScore = [0];
+// array of all scores
+const score = [];
 
+// timer at game start
 const time = ['3', '2', '1', 'GO'];
 
 function startGame(e) {
   e.preventDefault();
 
-  game = game++ || 0;
+  game++;
 
+  // stup snake and adjsut velocity
   snake.setup();
   snake.vel = createVector(1, 0);
 
-  score = 0;
+  // push init snake length which is 0
+  score.push(snake.pos.length - 3);
 
-  scoreHtml.innerText = `Score: ${score}`;
-  startBtn.style.display = 'none';
+  // show new score, disable start btn
+  scoreHtml.innerText = `Score: ${score[game]}`;
+  startBtn.classList.add('inactive');
 
   showTimer();
 }
 
 function showTimer() {
+  // show timer after clicking on start before game starts
   timerHtml.innerHTML = time[0];
   timerHtml.style.display = '';
 
@@ -37,9 +43,12 @@ function showTimer() {
   }, 1000);
 
   setTimeout(() => {
+    // start game after 4 secs
     toggleGame(true);
 
     clearInterval(timer);
+
+    // hide timer
     timerHtml.style.display = 'none';
   }, 4000);
 }
@@ -47,16 +56,16 @@ function showTimer() {
 function gameOver() {
   toggleGame(false);
 
-  highScore.push(score);
-  startBtn.style.display = '';
+  startBtn.classList.remove('inactive');
 }
 
 function showScore() {
-  ++score;
-  highScore[game] = score;
-  console.log(highScore);
-  scoreHtml.innerText = `Score: ${score}`;
-  highscoreHtml.innerText = `Highscore: ${Math.max(...highScore)}`;
+  // score = snake length - 3
+  score[game] = snake.pos.length - 3;
+
+  // show score in html
+  scoreHtml.innerText = `Score: ${score[game]}`;
+  highscoreHtml.innerText = `Highscore: ${Math.max(...score)}`;
 }
 
 startBtn.addEventListener('click', startGame);
