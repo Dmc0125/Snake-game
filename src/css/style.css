@@ -7,16 +7,21 @@
   transition: 200ms all ease-in-out;
 }
 
-canvas {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+body {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 10% auto 10% auto;
+  grid-template-areas: '. . .' '. main .' '. . .' '. cnv .';
+}
+
+#cnv {
+  grid-area: cnv;
+  position: relative;
 }
 
 #timer {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
@@ -26,10 +31,7 @@ canvas {
 
 main {
   width: 600px;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
+  grid-area: main;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -77,81 +79,34 @@ section div h2 {
 
 /* RESPONSIVE */
 
-@media only screen and (max-width: 720px) and (min-width: 625px) {
-  main {
-    width: 65%;
-  }
-
-  canvas,
-  #timer {
-    top: 50%;
-  }
-}
-
-@media only screen and (max-width: 624px) and (min-width: 521px) {
-  main {
-    width: 85%;
-  }
-}
-
-@media only screen and (max-width: 520px) and (min-width: 345px) {
+@media only screen and (max-width: 720px) and (min-width: 521px) {
   main {
     width: 400px;
-    justify-content: space-around;
-  }
-
-  #start {
-    width: 120px;
-    height: 45px;
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  section div {
-    width: 120px;
-    height: 45px;
-  }
-
-  section div h2 {
-    color: #fff;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 40px;
-  }
-
-  canvas,
-  #timer {
-    top: 45%;
   }
 }
 
-@media only screen and (max-width: 344px) {
+@media only screen and (max-width: 520px) {
   main {
-    width: 80%;
+    width: 300px;
     justify-content: space-between;
   }
 
   #start {
-    width: 100px;
+    width: 120px;
     height: 40px;
-    font-size: 14px;
-    font-weight: 400;
+    font-weight: 300;
+    font-size: 16px;
   }
 
   section div {
-    width: 100px;
+    width: 120px;
     height: 40px;
   }
 
   section div h2 {
     color: #fff;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 300;
     line-height: 40px;
-  }
-
-  canvas,
-  #timer {
-    top: 45%;
   }
 }
