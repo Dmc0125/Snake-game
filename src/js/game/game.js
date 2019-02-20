@@ -11,7 +11,7 @@ let snake, apple;
 // CUSTOM FUNCTIONS
 
 // get screnn width
-const getWidth = w => w <= 720 && w > 520 ? 400 : w <= 520 ? 300 : 600;
+const getWidth = w => (w <= 720 && w > 520 ? 400 : w <= 520 ? 300 : 600);
 
 // toggle game loop
 const toggleGame = bool => {
@@ -23,9 +23,15 @@ function setup() {
   w = getWidth(window.innerWidth);
   wscl = w / rez;
 
-  createCanvas(w, w);
+  // create canvas and append it to #cnv
+  const cvEl = document.querySelector('#cnv');
+  const cv = createCanvas(w, w);
+  cvEl.appendChild(cv.elt);
+
+  // set framerate
   frameRate(fRate);
 
+  // setup main game elements
   snake = new Snake();
   snake.setup();
 
@@ -57,7 +63,6 @@ function draw() {
   if (snake.collision()) {
     gameOver();
   }
-
 }
 
 // RESIZE CANVAS ON RESIZING WINDOW
