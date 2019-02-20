@@ -8,14 +8,62 @@ let wscl;
 
 let snake, apple;
 
+// canvas element
+let cvEl;
+let cv;
+
 // CUSTOM FUNCTIONS
 
-// get screnn width
+// get screen width
 const getWidth = w => (w <= 720 && w > 520 ? 400 : w <= 520 ? 300 : 600);
 
 // toggle game loop
 const toggleGame = bool => {
   bool ? loop() : noLoop();
+};
+
+// change snake dir
+const changeSnakeDir = key => {
+  console.log(key);
+
+  switch (key) {
+    case 38:
+      if (
+        snake.pos[1].x === snake.pos[0].x - snake.vel.x &&
+        snake.pos[1].y === snake.pos[0].y - 1
+      ) {
+        break;
+      }
+      snake.chngDir(0, -1);
+      break;
+    case 40:
+      if (
+        snake.pos[1].x === snake.pos[0].x - snake.vel.x &&
+        snake.pos[1].y === snake.pos[0].y + 1
+      ) {
+        break;
+      }
+      snake.chngDir(0, 1);
+      break;
+    case 37:
+      if (
+        snake.pos[1].x === snake.pos[0].x - 1 &&
+        snake.pos[1].y === snake.pos[0].y - snake.vel.y
+      ) {
+        break;
+      }
+      snake.chngDir(-1, 0);
+      break;
+    case 39:
+      if (
+        snake.pos[1].x === snake.pos[0].x + 1 &&
+        snake.pos[1].y === snake.pos[0].y - snake.vel.y
+      ) {
+        break;
+      }
+      snake.chngDir(1, 0);
+      break;
+  }
 };
 
 // P5 FUNCTIONS
@@ -24,8 +72,8 @@ function setup() {
   wscl = w / rez;
 
   // create canvas and append it to #cnv
-  const cvEl = document.querySelector('#cnv');
-  const cv = createCanvas(w, w);
+  cvEl = document.querySelector('#cnv');
+  cv = createCanvas(w, w);
   cvEl.appendChild(cv.elt);
 
   // set framerate
@@ -37,9 +85,8 @@ function setup() {
 
   apple = new Apple();
 
-  // const cnv = document.querySelector('canvas');
-
-  // cnv.addEventListener('mousedown', e => alert(e));
+  // add event listener to canvas
+  cvCoords = document.querySelector('canvas').getBoundingClientRect();
 
   noLoop();
 }
@@ -75,44 +122,7 @@ function windowResized() {
 
 // CHANGE SNAKE DIR ON ARROW PRESSED
 function keyPressed() {
-  switch (keyCode) {
-    case UP_ARROW:
-      if (
-        snake.pos[1].x === snake.pos[0].x - snake.vel.x &&
-        snake.pos[1].y === snake.pos[0].y - 1
-      ) {
-        break;
-      }
-      snake.chngDir(0, -1);
-      break;
-    case DOWN_ARROW:
-      if (
-        snake.pos[1].x === snake.pos[0].x - snake.vel.x &&
-        snake.pos[1].y === snake.pos[0].y + 1
-      ) {
-        break;
-      }
-      snake.chngDir(0, 1);
-      break;
-    case LEFT_ARROW:
-      if (
-        snake.pos[1].x === snake.pos[0].x - 1 &&
-        snake.pos[1].y === snake.pos[0].y - snake.vel.y
-      ) {
-        break;
-      }
-      snake.chngDir(-1, 0);
-      break;
-    case RIGHT_ARROW:
-      if (
-        snake.pos[1].x === snake.pos[0].x + 1 &&
-        snake.pos[1].y === snake.pos[0].y - snake.vel.y
-      ) {
-        break;
-      }
-      snake.chngDir(1, 0);
-      break;
-  }
+  changeSnakeDir(keyCode);
 }
 
 // CHANGE SNAKE DIR ON SWIPE ON MOBILE

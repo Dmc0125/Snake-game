@@ -7,10 +7,15 @@
   transition: 200ms all ease-in-out;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: 10% auto 10% auto;
+  grid-template-rows: 10% auto 5% auto;
   grid-template-areas: '. . .' '. main .' '. . .' '. cnv .';
 }
 
