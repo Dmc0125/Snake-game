@@ -1,26 +1,23 @@
 let cvCoords;
 let mouseStartCoords;
-let isOnCanvas = false;
 
 const isInCanvas = ({ clientX, clientY }, { top, bottom, right, left }) =>
   clientY >= top && clientY <= bottom && clientX >= left && clientX <= right;
 
-document.addEventListener('mousedown', e => {
-  if (!isInCanvas(e, cvCoords)) return;
+document.addEventListener('touchstart', e => {
+  if (!isInCanvas(e.touches[0], cvCoords)) return;
 
   mouseStartCoords = {
-    startX: e.clientX,
-    startY: e.clientY,
+    startX: e.touches[0].clientX,
+    startY: e.touches[0].clientY,
   };
-
-  isOnCanvas = true;
 });
 
-document.addEventListener('mouseup', e => {
-  if (!isInCanvas(e, cvCoords) && !isOnCanvas) return;
+document.addEventListener('touchend', e => {
+  if (!isInCanvas(e.changedTouches[0], cvCoords) && !isOnCanvas) return;
 
   const { startX, startY } = mouseStartCoords;
-  const { clientX, clientY } = e;
+  const { clientX, clientY } = e.changedTouches[0];
 
   const dirX = clientX - startX;
   const dirY = clientY - startY;
@@ -33,7 +30,5 @@ document.addEventListener('mouseup', e => {
   else if (dirY >= 0 && Math.abs(dirX) < Math.abs(dirY)) dir = 40;
   else if (dirY <= 0 && Math.abs(dirX) < Math.abs(dirY)) dir = 38;
 
-  changeSnakeDir(dir);
-
-  isOnCanvas = false;
+  if (dir) changeSnakeDir(dir);
 });

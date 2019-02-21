@@ -24,8 +24,6 @@ const toggleGame = bool => {
 
 // change snake dir
 const changeSnakeDir = key => {
-  console.log(key);
-
   switch (key) {
     case 38:
       if (
