@@ -63,10 +63,9 @@ class Snake {
   collision() {
     const { x, y } = this.pos[0];
 
-    const collided = this.pos.slice(1).findIndex(p => p.x === x && p.y === y) > -1;
+    const collided = () => x < 0 || x >= wscl || y < 0 || y >= wscl
+      || (this.pos.slice(1).findIndex(p => p.x === x && p.y === y) > -1);
 
-    const hitWall = () => x < 0 || x >= wscl || y < 0 || y >= wscl;
-
-    return collided || hitWall() ? true : false;
+    return collided() ? true : false;
   }
 }

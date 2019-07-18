@@ -1,4 +1,7 @@
 {
   "version": 2,
-  "alias": ["snake-game"]
+  "name": "snake-game",
+  "alias": [
+    "snake-game"
+  ]
 }

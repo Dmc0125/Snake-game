@@ -3,11 +3,8 @@ const scoreHtml = document.querySelector('.score h2');
 const highscoreHtml = document.querySelector('.highscore h2');
 const timerHtml = document.querySelector('#timer h1');
 
-// games counter
-let game = -1;
-
-// array of all scores
-const score = [];
+let highscore;
+let score = 0;
 
 // timer at game start
 const time = ['3', '2', '1', 'GO'];
@@ -15,17 +12,13 @@ const time = ['3', '2', '1', 'GO'];
 function startGame(e) {
   e.preventDefault();
 
-  game++;
-
-  // stup snake and adjsut velocity
+  // setup snake and adjust velocity
   snake.setup();
   snake.vel = createVector(1, 0);
 
-  // push init snake length which is 0
-  score.push(snake.pos.length - 3);
-
   // show new score, disable start btn
-  scoreHtml.innerText = `Score: ${score[game]}`;
+  showScore();
+  
   startBtn.classList.add('inactive');
 
   showTimer();
@@ -36,36 +29,50 @@ function showTimer() {
   timerHtml.innerHTML = time[0];
   timerHtml.style.display = '';
 
-  let i = 0;
+  const timer = (i = 0) => {
+    timerHtml.innerText = `${time[i]}`;
+    
+    if (i === 4) {
+      toggleGame(true);
+      timerHtml.style.display = 'none';
 
-  const timer = setInterval(() => {
-    timerHtml.innerHTML = `${time[++i]}`;
-  }, 1000);
+      return;
+    }
 
-  setTimeout(() => {
-    // start game after 4 secs
-    toggleGame(true);
+    setTimeout(() => {
+      timer(++i);
+    }, 1000);
+  }
 
-    clearInterval(timer);
-
-    // hide timer
-    timerHtml.style.display = 'none';
-  }, 4000);
+  timer();
 }
 
 function gameOver() {
   toggleGame(false);
 
   startBtn.classList.remove('inactive');
+
+  const highscore = localStorage.getItem('highscore');
+
+  if (highscore && score < highscore) return;
+
+  localStorage.setItem('highscore', score);
 }
 
 function showScore() {
   // score = snake length - 3
-  score[game] = snake.pos.length - 3;
+  score = snake.pos.length - 3;
+
+  highscore = localStorage.getItem('highscore') || score;
 
   // show score in html
-  scoreHtml.innerText = `Score: ${score[game]}`;
-  highscoreHtml.innerText = `Highscore: ${Math.max(...score)}`;
+  scoreHtml.innerText = `Score: ${score}`;
+  highscoreHtml.innerText = `Highscore: ${highscore > score ? highscore : score}`;
 }
 
 startBtn.addEventListener('click', startGame);
+window.addEventListener('load', () => {
+  highscore = localStorage.getItem('highscore') || 0;
+
+  highscoreHtml.innerText = `Highscore: ${highscore}`;
+});

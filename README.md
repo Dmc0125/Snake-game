@@ -3,7 +3,7 @@
 - Simple snake game created with p5
 
 - Website is at URL:
-  - https://snake-game.now.sh
+  - https://snake-game.domikmic.now.sh
 
 ### TODO
 
@@ -26,13 +26,14 @@
 - [x] add reactivity to window size
 
 - [x] deploy with now!
-  - https://snake-game.now.sh
+  - https://snake-game.domikmic.now.sh
 
 
 ### ADD Later
 
-- [ ] show score
-- [ ] change dir of snake on touch on mobile device
+- [x] show score
+  - save highscore to local storage
+- [x] change dir of snake on touch on mobile device
 - [ ] modes:
   - hard
     - framerate increasing with apples eaten
